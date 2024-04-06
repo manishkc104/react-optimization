@@ -39,3 +39,15 @@ Slow-loading web applicaton often results in higher bounce rates, users will lik
 ### Competitive Advantage :
 
 According to research done by Portent, a website that loads within one second has a conversion rate five times higher than a site that takes ten seconds to load. Therefore a fast and efficient application sets you apart from competitors whose application may be slower or less optimized.
+
+## 3. React Performance Optimizaton Techniques
+
+Below are the optimmization techniques that be added to make the react application fast.
+
+### 1. Memoization :
+
+Memoization in React is a performance optimization technique within functional components. It involves storing the results of expensive computations or function calls in cache to avoid redundant calculation when the same values are encountered. This approach improves the efficiency of the application.
+
+In React, there are three techniques for memoization: `React.memo()`, `useMemo()` and `useCallback()`.
+
+### Using React.Memo()
