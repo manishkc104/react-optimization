@@ -50,4 +50,43 @@ Memoization in React is a performance optimization technique within functional c
 
 In React, there are three techniques for memoization: `React.memo()`, `useMemo()` and `useCallback()`.
 
-### Using React.Memo()
+### Using React.memo()
+
+React.memo is a higher order component provided by React that is used to memoize the functional components.It prevent the re-rendering of the component if the recieved props remain unchanged.
+
+Here is an example on how React.memo() is used
+
+```js
+import React from "react";
+
+const Greeting = ({ name }) => {
+  return <div>Hello, {name}!</div>;
+};
+
+export default React.memo(Greeting);
+```
+
+In the above code we have a simple functional component `Greeting` that takes a `name` prop and displays a greeting message. We implemented `React.memo()` to wrap the `Greeting`, by wrapping it react will only re-render the `Greeting` component if the `name` props changes.
+
+```js
+import React, { useState } from "react";
+
+const ParentComponent = () => {
+  const [count, setCount] = React.useState(0);
+  return (
+    <div>
+      <button onClick={() => setCount(count + 1)}>Increment Count</button>
+      <Greeting name="John" />
+      <p>Count: {count}</p>
+    </div>
+  );
+};
+
+export default ParentComponent;
+```
+
+We have a parent component `ParentComponent` that maintains a count state using `useState()` . It renders the `Greeting` component along with a button to increment the count.
+
+When you run this code and click the "Increment Count" button, you'll notice that the `Greeting` component is only rendered once. This is because `React.memo()` memoizes the rendering of the component based on its props. Since the props passed to `Greeting` remain the same (name="John"), React skips re-rendering the component on subsequent updates triggered by the count increment.
+
+However, if you remove `React.memo()` and use `Greeting` directly in `ParentComponent`, you'll see that `Greeting` is rendered on every count increment, regardless of whether its props have changed or not. This demonstrates the performance optimization achieved by memoization with `React.memo()`.
