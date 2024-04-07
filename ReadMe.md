@@ -50,7 +50,7 @@ Memoization in React is a performance optimization technique within functional c
 
 In React, there are three techniques for memoization: `React.memo()`, `useMemo()` and `useCallback()`.
 
-### Using React.memo()
+### Using `React.memo()`
 
 React.memo is a higher order component provided by React that is used to memoize the functional components.It prevent the re-rendering of the component if the recieved props remain unchanged.
 
@@ -91,9 +91,9 @@ When you run this code and click the "Increment Count" button, you'll notice tha
 
 However, if you remove `React.memo()` and use `Greeting` directly in `ParentComponent`, you'll see that `Greeting` is rendered on every count increment, regardless of whether its props have changed or not. This demonstrates the performance optimization achieved by memoization with `React.memo()`.
 
-### Using useMemo()
+### Using `useMemo()`
 
-useMemo() is a hook provided by React that memoizes the result a function call of an expensive computation.
+The `useMemo()` is a hook provided by React that memoizes the result a function call of an expensive computation.
 
 Below is an example on how to use the useMemo hook.
 
@@ -150,3 +150,43 @@ export default App;
 The `App` component maintains a state `numberList` to hold the list of numbers. When the `Add Random Number` button is clicked, a random number is added to the list and the `SumComponent` is rendered with the `numberList` as its prop.
 
 Taking the above example when we run this code and click the `Add Random Number` button, you'll notice that the `sum` is recalculated only when the list of numbers changes. The calculation of the sum is memoized using `React.useMemo()`, which helps in optimizing performance by avoiding unnecessary recalculations.
+
+### Using `useCallback()`
+
+The `useCallback()` hook in React is used to memoize a function instead of memoizing the function result. The `useCallback()` memoizes the function, ensuring it remains the same across re-renders as long as the dependencies haven't changed.
+
+Below is the example where the hook is being used :
+
+```js
+import React, { useState, useCallback } from "react";
+
+const ChildComponent = ({ onClick }) => {
+  return <button onClick={onClick}>Click Me</button>;
+};
+
+const ParentComponent = () => {
+  const [count, setCount] = useState(0);
+
+  const handleClick = useCallback(() => {
+    setCount(count + 1);
+  }, [count]);
+
+  return (
+    <div>
+      <h2>Parent Component</h2>
+      <p>Count: {count}</p>
+      <ChildComponent onClick={handleClick} />
+    </div>
+  );
+};
+
+export default ParentComponent;
+```
+
+We have a `ChildComponent` functional component that receives a onClick callback function as a prop. This component thenrenders a button that triggers the onClick callback when clicked.
+
+We have a ParentComponent which renders the ChildComponent and alsi maintains a `count` state using the `useState()` hook.
+
+Inside the `ParentComponent`, we have used `React.useCallback()` to memoize the `handleClick` callback function. The dependency `[count]` specifies that the callback function should be recalculated only if the value of count state changes.
+
+Taking the above implementation when we run the code and click the "Click Me", only when the button is clicked the count value is updated. The handleClick callback function is memoized using `React.useCallback()`, preventing unnecessary recreations of the function on each render of the parent component. This helps in optimizing performance by avoiding unnecessary re-renders of child components that receive the callback function as a prop.
