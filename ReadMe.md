@@ -190,3 +190,5 @@ We have a ParentComponent which renders the ChildComponent and alsi maintains a 
 Inside the `ParentComponent`, we have used `React.useCallback()` to memoize the `handleClick` callback function. The dependency `[count]` specifies that the callback function should be recalculated only if the value of count state changes.
 
 Taking the above implementation when we run the code and click the "Click Me", only when the button is clicked the count value is updated. The handleClick callback function is memoized using `React.useCallback()`, preventing unnecessary recreations of the function on each render of the parent component. This helps in optimizing performance by avoiding unnecessary re-renders of child components that receive the callback function as a prop.
+
+### 2. Windowing or List Virtualization
