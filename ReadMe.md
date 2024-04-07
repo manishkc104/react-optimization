@@ -90,3 +90,63 @@ We have a parent component `ParentComponent` that maintains a count state using 
 When you run this code and click the "Increment Count" button, you'll notice that the `Greeting` component is only rendered once. This is because `React.memo()` memoizes the rendering of the component based on its props. Since the props passed to `Greeting` remain the same (name="John"), React skips re-rendering the component on subsequent updates triggered by the count increment.
 
 However, if you remove `React.memo()` and use `Greeting` directly in `ParentComponent`, you'll see that `Greeting` is rendered on every count increment, regardless of whether its props have changed or not. This demonstrates the performance optimization achieved by memoization with `React.memo()`.
+
+### Using useMemo()
+
+useMemo() is a hook provided by React that memoizes the result a function call of an expensive computation.
+
+Below is an example on how to use the useMemo hook.
+
+```js
+import React, { useMemo } from "react";
+
+const SumComponent = ({ numbers }) => {
+  const sum = useMemo(() => {
+    return numbers.reduce((acc, num) => acc + num, 0);
+  }, [numbers]);
+
+  return (
+    <div>
+      <h2>Sum of Numbers</h2>
+      <p>{sum}</p>
+    </div>
+  );
+};
+
+export default SumComponent;
+```
+
+In the above example we have a `SumComponent` functional component that takes a list of numbers as a prop. Inside this component, we use `React.useMemo()` to memoize the calculation of the sum of the numbers.
+
+Here the dependency array of `useMemo()` is `[numbers]`, which means that the memoized value `sum` will only be recalculated when the numbers array changes.
+
+```js
+import React, { useState } from "react";
+
+const App = () => {
+  const [numberList, setNumberList] = useState([1, 2, 3, 4, 5]);
+
+  const addRandomNumber = () => {
+    const randomNumber = Math.floor(Math.random() * 10) + 1;
+    setNumberList([...numberList, randomNumber]);
+  };
+
+  return (
+    <div>
+      <button onClick={addRandomNumber}>Add Random Number</button>
+      <ul>
+        {numberList.map((number, index) => (
+          <li key={index}>{number}</li>
+        ))}
+      </ul>
+      <SumComponent numbers={numberList} />
+    </div>
+  );
+};
+
+export default App;
+```
+
+The `App` component maintains a state `numberList` to hold the list of numbers. When the `Add Random Number` button is clicked, a random number is added to the list and the `SumComponent` is rendered with the `numberList` as its prop.
+
+Taking the above example when we run this code and click the `Add Random Number` button, you'll notice that the `sum` is recalculated only when the list of numbers changes. The calculation of the sum is memoized using `React.useMemo()`, which helps in optimizing performance by avoiding unnecessary recalculations.
