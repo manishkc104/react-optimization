@@ -192,3 +192,62 @@ Inside the `ParentComponent`, we have used `React.useCallback()` to memoize the 
 Taking the above implementation when we run the code and click the "Click Me", only when the button is clicked the count value is updated. The handleClick callback function is memoized using `React.useCallback()`, preventing unnecessary recreations of the function on each render of the parent component. This helps in optimizing performance by avoiding unnecessary re-renders of child components that receive the callback function as a prop.
 
 ### 2. Windowing or List Virtualization
+
+Windowing or List Virtualization refers to a technique used particularly in user interface design, to efficiently manage dealing with large number of items in a list. Rendering all the items at once can lead to slow performance and consume a significant amount of memory.
+
+Windowing or List Virtualization addresses this problem by only rendering the portion of the items that is currently visible to the user on the screen. As the user scrolls through the list or window, the content is dynamically loaded and unloaded, ensuring that only the visible portion is actively present in the user interface.
+
+There are various approaches and ways to implement list visualization. Some of the ways are by using libraries such as `React Virtualized`, `React Window` and `React Infinite Scroller `
+
+In below example we are gonna see how list virtualization technique work with the help of `React Virtualized`
+
+First we need to install the `React Virtualized Package`
+
+```
+npm install react-virtualized
+```
+
+In this example we will used the library to render a large list efficiently.We'll render a list of items containing numbers from `1 to 1000`.
+
+```js
+import React from "react";
+import { List } from "react-virtualized";
+import "react-virtualized/styles.css";
+
+const LargeList = () => {
+  const list = Array.from({ length: 1000 }, (_, index) => index + 1);
+
+  const rowRenderer = ({ index, key, style }) => {
+    return (
+      <div key={key} style={style}>
+        {list[index]}
+      </div>
+    );
+  };
+
+  return (
+    <div style={{ height: 400, width: 300 }}>
+      <List
+        width={300}
+        height={400}
+        rowCount={list.length}
+        rowHeight={30}
+        rowRenderer={rowRenderer}
+      />
+    </div>
+  );
+};
+
+export default LargeList;
+```
+
+In the above example we imported the `List` component from `react-virtualized` along with the default styles.For haivng a large list we generated a list of items containing numbers from 1 to 1000 using `Array.from`. The `rowRenderer` function defines how each row should be rendered.
+
+Then we pass the necessary props to the `List` component
+
+- `width` and `height` define the dimensions of the list container.
+- `rowCount` specifies the total number of items in the list.
+- `rowHeight` defines the height of each row in pixels.
+- `rowRenderer` is the function responsible for rendering each row.
+
+Now when you render the `LargeList` component, React Virtualized will efficiently render only the visible portion of the list, improving performance by avoiding unnecessary rendering during off-screen items.
