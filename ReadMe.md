@@ -11,6 +11,13 @@
      <li>
       <a href="#2-why-performance-optimization">Why Performance Optimization</a>
     </li>
+     <li>
+      <a href="#3-react-performance-optimizaton-techniques">React Performance Optimizaton Techniques</a>
+      <ul>
+        <li><a href="#1-memoization">Memoization</a></li>
+        <li><a href="#2-windowing-or-list-virtualization">Windowing or List Virtualization</a></li>
+      </ul>
+    </li>
   </ol>
 </details>
 
