@@ -294,7 +294,6 @@ const LazyImageLoaded = () => {
       <h1>Lazy Loaded Images</h1>
       <LazyImage src="path_to_image" alt="Lazy Loaded Image" />
       <LazyImage src="path_to_another_image" alt="Another Lazy Loaded Image" />
-      {/* Add more LazyImage components as needed */}
     </div>
   );
 };
