@@ -301,3 +301,7 @@ const LazyImageLoaded = () => {
 
 export default LazyImageLoaded;
 ```
+
+First we define a functional component called LazyImage. We import the `LazyLoad` component from `react-lazyload`. Inside the LazyLoad component, we wrap an <img> element. This element will be rendered lazily, meaning it will only load when it's about to enter the viewport.
+
+By using this code, you can implement lazy loading of images in your React application, improving performance by only loading images when they're needed. Remember to replace "path_to_image" and "path_to_another_image" with the actual paths to your images.
