@@ -16,6 +16,7 @@
       <ul>
         <li><a href="#1-memoization">Memoization</a></li>
         <li><a href="#2-windowing-or-list-virtualization">Windowing or List Virtualization</a></li>
+         <li><a href="#3-lazy-loading-images">Lazing Loading Images</a></li>
       </ul>
     </li>
   </ol>
@@ -259,7 +260,7 @@ Then we pass the necessary props to the `List` component
 
 Now when you render the `LargeList` component, React Virtualized will efficiently render only the visible portion of the list, improving performance by avoiding unnecessary rendering during off-screen items.
 
-### 3. Lazy loading images :
+### 3. Lazy Loading Images :
 
 In React applications, optimizing performance often involves managing the rendering of resources like images efficiently. When an application contains numerous images, rendering them all in the DOM nodes at once can significantly slow down the initial page load time.
 
