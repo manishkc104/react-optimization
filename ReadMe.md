@@ -258,3 +258,45 @@ Then we pass the necessary props to the `List` component
 - `rowRenderer` is the function responsible for rendering each row.
 
 Now when you render the `LargeList` component, React Virtualized will efficiently render only the visible portion of the list, improving performance by avoiding unnecessary rendering during off-screen items.
+
+### 3. Lazy loading images :
+
+In React applications, optimizing performance often involves managing the rendering of resources like images efficiently. When an application contains numerous images, rendering them all in the DOM nodes at once can significantly slow down the initial page load time.
+
+To address this issue lazy loading is used to delay the loading of images until they are needed or visible to the user instead of loading all the images on page load.
+
+Lazy loading images in React can be achieved in several ways and with the help of various libraries.
+
+In below example we are gonna see how lazy load images technique work with the help of ` react-lazyload`
+
+First we need to install the `react-lazyload`
+
+```
+npm install react-lazyload
+```
+
+```js
+import React from "react";
+import LazyLoad from "react-lazyload";
+
+const LazyImage = ({ src, alt }) => {
+  return (
+    <LazyLoad height={200} once>
+      <img src={src} alt={alt} />
+    </LazyLoad>
+  );
+};
+
+const LazyImageLoaded = () => {
+  return (
+    <div>
+      <h1>Lazy Loaded Images</h1>
+      <LazyImage src="path_to_image" alt="Lazy Loaded Image" />
+      <LazyImage src="path_to_another_image" alt="Another Lazy Loaded Image" />
+      {/* Add more LazyImage components as needed */}
+    </div>
+  );
+};
+
+export default LazyImageLoaded;
+```
