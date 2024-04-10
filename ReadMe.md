@@ -304,3 +304,78 @@ export default LazyImageLoaded;
 First we define a functional component called LazyImage. We import the `LazyLoad` component from `react-lazyload`. Inside the LazyLoad component, we wrap an <img> element. This element will be rendered lazily, meaning it will only load when it's about to enter the viewport.
 
 By using this code, you can implement lazy loading of images in your React application, improving performance by only loading images when they're needed. Remember to replace "path_to_image" and "path_to_another_image" with the actual paths to your images.
+
+### 4. Code Splitting :
+
+Code splitting is another important optimization technique for a React application.. It involves breaking down the JavaScript code into smaller, more manageable chunks or bundles, and then loading only the required code for the current page or feature that the user is accessing.
+
+When you develop a React Application, all your JavaScript code is typically bundled together into a single file. As the application grow the buundle also grows which results to slow intial load time for the users.
+
+Code Splitting divides the single bundle into multiple chunks which can be loaded according to the needs to the application.
+
+For example imagine you have a React application with multiple components, and you want to optimize its performance by splitting the code into smaller bundles. Let's say you have a simple application with two main components: `HomePage` and `AboutPage`.
+
+```js
+import React from "react";
+
+const HomePage = () => {
+  return (
+    <div>
+      <h1>Welcome to the Home Page!</h1>
+    </div>
+  );
+};
+
+export default HomePage;
+```
+
+```js
+import React from "react";
+
+const AboutPage = () => {
+  return (
+    <div>
+      <h1>About Us</h1>
+      <p>This is the About Page.</p>
+    </div>
+  );
+};
+
+export default AboutPage;
+```
+
+Now we will create a main App component to dynamically load these components using code splitting:
+
+```js
+import React, { Suspense, lazy } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
+const HomePage = lazy(() => import("./HomePage"));
+const AboutPage = lazy(() => import("./AboutPage"));
+
+const App = () => {
+  return (
+    <Router>
+      <div>
+        <h1>Application</h1>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Switch>
+            <Route exact path="/">
+              <HomePage />
+            </Route>
+            <Route exact path="/about">
+              <AboutPage />
+            </Route>
+          </Switch>
+        </Suspense>
+      </div>
+    </Router>
+  );
+};
+
+export default App;
+```
+
+In the above App component we are using `lazy` function provided by React to dynamically import the `HomePage` and `AboutPage` components. While using the lazy function the `import()` is called only when the component is actually rendered, not during the inital load.
+
+In the above example we have wrapped out dynamic imports with the Suspense component. The Suspense component allows us to specify a fallback UI while the component is being loaded.When the user navigates to the HomePage or AboutPage, the respective component is loaded on demand, reducing the initial bundle size and improving performance.
