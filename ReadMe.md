@@ -434,3 +434,35 @@ export default MyComponent;
 ```
 
 In the above React component, clicking the button triggers the creation of a new Web Worker instance. It then sends a message containing the data to be processed. Once the Web Worker completes its task and sends back the result, it updates the component state.
+
+### 6. Using React Fragments
+
+`React Fragmen`t is a feature that allows you to group multiple element together without adding an additional DOM node.
+
+Below is an example on how `React Fragments` help in optimization.
+
+When grouping and rendering multiple child elements we use `<div>` to wrap them in a parent element
+
+```js
+return (
+  <div>
+    <p>Paragraph 1</p>
+    <p>Paragraph 2</p>
+    <p>Paragraph 3</p>
+  </div>
+);
+```
+
+In this case, a `<div>` element is created as a parent for the three `<p>` elements. However, if you don't actually need a parent element and only want to group the children for the sake of structure or semantics, you can use `React.Fragment` :
+
+```js
+return (
+  <React.Fragment>
+    <p>Paragraph 1</p>
+    <p>Paragraph 2</p>
+    <p>Paragraph 3</p>
+  </React.Fragment>
+);
+```
+
+while using `React.Fragment`, we can avoid adding an unnecessary parent `<div>` to the DOM, which can lead to a cleaner and more efficient DOM structure.
