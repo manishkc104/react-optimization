@@ -437,9 +437,9 @@ In the above React component, clicking the button triggers the creation of a new
 
 ### 6. Using React Fragments
 
-`React Fragmen`t is a feature that allows you to group multiple element together without adding an additional DOM node.
+`React Fragment` is a feature that allows you to group multiple element together without adding an additional DOM node.
 
-Below is an example on how `React Fragments` help in optimization.
+Below is an example on how `React Fragment` help in optimization.
 
 When grouping and rendering multiple child elements we use `<div>` to wrap them in a parent element
 
