@@ -379,3 +379,58 @@ export default App;
 In the above App component we are using `lazy` function provided by React to dynamically import the `HomePage` and `AboutPage` components. While using the lazy function the `import()` is called only when the component is actually rendered, not during the inital load.
 
 In the above example we have wrapped out dynamic imports with the Suspense component. The Suspense component allows us to specify a fallback UI while the component is being loaded.When the user navigates to the HomePage or AboutPage, the respective component is loaded on demand, reducing the initial bundle size and improving performance.
+
+### 5. Applying Web Worker
+
+JavaScript is a single threaded application as it is designed to handle synchronous tasks. Web Worker is a JavaScript feature that allows you to run scripts in the background, independently of the main thread. This can be helpful for executing tasks that are computationally intensive or time-consuming without blocking the main thread, thus keeping the UI responsive.
+
+In the below example we will see how we can use web worket in React and how it will help in optimization :
+
+First we will create a separate JavaScript file called `worker.js` for the Web Worker.This file will contain the code that you want to run in the background.
+
+```js
+self.onmessage = function (e) {
+  const data = e.data;
+  const result = processData(data);
+  self.postMessage(result);
+};
+
+function processData(data) {
+  // Perform computationally intensive or time-consuming tasks here
+  // Return the result
+}
+```
+
+In the above file the Web Worker listens for messages using the `onmessage` event handler. When it receives a message it then processes the data and sends the result back to the main thread using the `postMessage` method.
+
+To use the web worker in React we can create a different instance of the Web Worker and communicate it using the `Worker` constructor.
+
+```js
+import React, { useState } from "react";
+
+const MyComponent = () => {
+  const [result, setResult] = useState(null);
+
+  const handleButtonClick = () => {
+    const worker = new Worker("worker.js");
+
+    worker.onmessage = function (e) {
+      setResult(e.data);
+      worker.terminate();
+    };
+
+    const data = worker.postMessage(data); //Data to be processed
+  };
+
+  return (
+    <div>
+      <button onClick={handleButtonClick}>Process Data</button>
+      {result && <div>Result: {result}</div>}
+    </div>
+  );
+};
+
+export default MyComponent;
+```
+
+In the above React component, clicking the button triggers the creation of a new Web Worker instance. It then sends a message containing the data to be processed. Once the Web Worker completes its task and sends back the result, it updates the component state.
