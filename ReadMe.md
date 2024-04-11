@@ -16,7 +16,10 @@
       <ul>
         <li><a href="#1-memoization">Memoization</a></li>
         <li><a href="#2-windowing-or-list-virtualization">Windowing or List Virtualization</a></li>
-         <li><a href="#3-lazy-loading-images">Lazing Loading Images</a></li>
+         <li><a href="#3-lazy-loading-images">Lazy Loading Images</a></li>
+          <li><a href="#4-code-splitting">Code Splitting</a></li>
+           <li><a href="#5-applying-web-worker">Applying Web Worker</a></li>
+            <li><a href="#6-using-react-fragments">Using React Fragments</a></li>
       </ul>
     </li>
   </ol>
